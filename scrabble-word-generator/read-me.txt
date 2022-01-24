@@ -1,0 +1,46 @@
+Author: Blake Ballew
+
+
+Strategy:
+
+The code first calls itself one time for every letter in the string,
+then again for every letter in the pool of letters that are left,
+then again until every possible permutation has been achieved.
+
+For example, if the code were ran: "python scrabble.py abcd" it would run down every
+permutation in a tree like structure akin to this:
+		
+					-------------abcd-------------
+				       /              /\              \
+                                      /              /  \              \               
+                                     /              /    \              \
+                                    /              /      \              \
+				   /              /        \              \
+				  /              /          \              \
+                                 a              b            c              d
+				/|\            /|\          /|\            /|\
+			       / | \          / | \        / | \          / | \
+			      /  |  \        /  |  \      /  |  \        /  |  \
+                             /   |   \      /   |   \    /   |   \      /   |   \
+			    b    c    d    a    c    d  a    b    d    a    b    c
+		           / \  / \  / \  / \  / \  /|  |\  / \  / \  / \  / \  / \
+			  c  d b  d b  c c  d a  d a c  b d a  d a  b c  b a  c a  b
+			 /   | |  | |  | |  | |  | | |  | | |  | |  | |  | |  | |   \
+			d    c d  b c  b d  c d  a c a  d b d  a b  a b  c c  a b    a
+
+Hence we find not only every permutation of the original string, but of all its substrings as well!
+
+
+Shortcomings:
+
+The major shortcoming of this code is how quickly it becomes infeasible to search for every permutation of
+a string of letters. Empirically, I found that the run-time of this piece of code came out to be:
+	
+f(n)=n*f(n-1), where f(n) is the run-time of the code for a string of length n
+
+For example, if we ran the code on the aforementioned string "abcd" (assuming our machine is uselessly slow)
+and it took about 5 seconds to run, then we could approximate with reasonable accuracy that to generate all the permutations
+for "abcde" would take about 5*f(4) => 6*(5) = 30 seconds.
+
+More realistically, on a fast machine it takes around 40 seconds to generate every permutation of an 11 letter string.
+Hence for a 12 letter string it takes 12*40 = 480 seconds, or around 8 minutes.
