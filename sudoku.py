@@ -1,4 +1,10 @@
 #author: Blake Ballew
+#takes as input a 2D list representing a sudoku puzzle
+#solves it via the backtracking approach coupled with a while loop
+#uses time and a global accumulator variable to display to the user 
+#the execution time (that will vary based on the machine) and the number of
+#iterations needed to solve the puzzle, which will be a fixed number
+
 import time
 accum = 0
 
@@ -72,12 +78,15 @@ def main(board):
     solved_puzzle = solve_helper(board, indices, 0)
     print_board(solved_puzzle)
 
-
-board =  [[7, 0, 5, 6, 2, 0, 8, 0, 0], [0, 2, 0, 8, 0, 9, 0, 7, 5], [3, 0, 8, 7, 4, 5, 0, 2, 1], [5, 3, 0, 2, 0, 6, 0, 1, 0], [0, 0, 2, 0, 0, 0, 5, 0, 0], [0, 7, 0, 5, 0, 4, 0, 6, 2], [2, 5, 0, 0, 6, 7, 0, 8, 4], [0, 8, 0, 4, 5, 2, 0, 9, 0], [0, 0, 7, 0, 0, 0, 2, 5, 0]]
-
-
-
 if __name__ == "__main__":
+    board = []
+    for x in range(1,10):
+        print("enter row", x, "separated by spaces")
+        row = input().split(" ")
+        int_map = map(int, row)
+        to_int = list(int_map)
+        board.append(to_int)
+    print("\nsolved puzzle: ")
     startTime = time.perf_counter()
     main(board)
     endTime = time.perf_counter()
