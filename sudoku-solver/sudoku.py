@@ -73,23 +73,23 @@ def print_board(board):
         print()
     print()
 
-def main(board):
-    indices = collect_indices(board)
-    solved_puzzle = solve_helper(board, indices, 0)
-    print_board(solved_puzzle)
-
-if __name__ == "__main__":
+def main():
     board = []
     print("please enter the puzzle row-by-row, without separation")
     for x in range(1,10):
-        print("enter row", x, ": ", end = "")
+        print("row", x, ": ", end = "")
         row = list(input())
         int_map = map(int, row)
         to_int = list(int_map)
         board.append(to_int)
     print("\nsolved puzzle: ")
     startTime = time.perf_counter()
-    main(board)
+    indices = collect_indices(board)
+    solved_puzzle = solve_helper(board, indices, 0)
     endTime = time.perf_counter()
     print("execution time: ", endTime-startTime)
     print("iterations: ", accum)
+    print_board(solved_puzzle)
+
+if __name__ == "__main__":
+    main()
