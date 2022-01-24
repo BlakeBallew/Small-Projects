@@ -80,9 +80,10 @@ def main(board):
 
 if __name__ == "__main__":
     board = []
+    print("please enter the puzzle row-by-row, without separation")
     for x in range(1,10):
-        print("enter row", x, "separated by spaces")
-        row = input().split(" ")
+        print("enter row", x, ": ", end = "")
+        row = list(input())
         int_map = map(int, row)
         to_int = list(int_map)
         board.append(to_int)
