@@ -10,7 +10,8 @@ accum = 0
 
 def solve_helper(board, indices, curr_index):
     global accum
-    while (curr_index < len(indices)):
+    length = len(indices)
+    while (curr_index < length):
         accum += 1
         flag = 0
         current_x = (indices[curr_index])[0]
@@ -19,7 +20,7 @@ def solve_helper(board, indices, curr_index):
 
         for x in range(1,10):
             board[current_x][current_y] = x
-            if is_valid(board) and x > current_on_board:
+            if is_valid(board, current_x, current_y) and x > current_on_board:
                 curr_index += 1
                 flag = 1
                 break
@@ -38,12 +39,10 @@ def collect_indices(board):
                 indices.append([x,y])
     return indices
 
-def is_valid(board):
-    for x in range(9):
-        for y in range(9):
-            if board[x][y] != 0:
-                if not (check_row(board, x, y) and check_column(board, x, y) and check_box(board, x ,y)):
-                    return False
+def is_valid(board, x, y):
+    if board[x][y] != 0:
+        if not (check_row(board, x, y) and check_column(board, x, y) and check_box(board, x ,y)):
+            return False
     return True
 
 def check_row(board, x, y):
