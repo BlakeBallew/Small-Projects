@@ -12,12 +12,15 @@ def solve_helper(board, indices, curr_index):
     global accum
     length = len(indices)
     while (curr_index < length):
+        if (curr_index < 0):
+            print("\nError: invalid puzzle")
+            break
+        
         accum += 1
         flag = 0
         current_x = (indices[curr_index])[0]
         current_y = (indices[curr_index])[1]
         current_on_board = board[current_x][current_y]
-
         for x in range(1,10):
             board[current_x][current_y] = x
             if is_valid(board, current_x, current_y) and x > current_on_board:
@@ -81,13 +84,13 @@ def main():
         int_map = map(int, row)
         to_int = list(int_map)
         board.append(to_int)
-    print("\nsolved puzzle: ")
     startTime = time.perf_counter()
     indices = collect_indices(board)
     solved_puzzle = solve_helper(board, indices, 0)
     endTime = time.perf_counter()
-    print("execution time: ", endTime-startTime)
+    print("\nexecution time: ", endTime-startTime)
     print("iterations: ", accum)
+    print("puzzle: ")
     print_board(solved_puzzle)
 
 if __name__ == "__main__":
