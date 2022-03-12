@@ -1,5 +1,6 @@
 #Author: Blake Ballew
-#Description: TBW
+#Description: Finds allocation of X items among Y people given each person's top Z items such that,
+#as a whole, the group is the "happiest"
 import random
 import sys
 import time
@@ -117,11 +118,3 @@ def main():
 
 if __name__ == "__main__": 
     main()
-
-"""
-info:
-9x9x9=1.94s
-10x10x10=20.03s
-10x10x9=7.46s w/ 1217472 candidates
-10x20x5=1.65s w/ 657033 candidates
-"""
