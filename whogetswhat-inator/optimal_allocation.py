@@ -109,8 +109,8 @@ def main():
     unhappiness = results[1]
     best_allocation = results[2]
     endTime = time.perf_counter() 
-    print("Execution time: ", endTime-startTime)
-    print(f"\ntotal candidates: {total_candidates}")
+    print(f"\nExecution time: {endTime-startTime}")
+    print(f"total candidates: {total_candidates}")
     print(f"minimal unhappiness found: {unhappiness}")
     for i, j in best_allocation.items():
         print(f"{i} -> {j}")

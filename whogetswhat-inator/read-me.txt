@@ -18,8 +18,8 @@ person7: thing8 ->  thing5 ->  thing1
 person8: thing10 ->  thing7 ->  thing4
 person9: thing1 ->  thing8 ->  thing2
 person10: thing7 ->  thing10 ->  thing8
-Execution time:  0.00537299999999874
 
+Execution time:  0.00537299999999874
 total candidates: 16
 minimal unhappiness found: 19
 person1 -> thing6
