@@ -1,0 +1,34 @@
+Author: Blake Ballew
+Description: Sample input and output of case where we want to distribute 10 items among 10
+people given each person's top 3 choices among the items
+
+
+>python optimal_allocation.py
+Would you like to enter data or generate test cases? (d or t) t
+Enter # people  10
+Enter # choices 10
+Enter # picks   3
+person1: thing10 ->  thing7 ->  thing6
+person2: thing9 ->  thing8 ->  thing1
+person3: thing7 ->  thing8 ->  thing2
+person4: thing4 ->  thing2 ->  thing7
+person5: thing10 ->  thing1 ->  thing8
+person6: thing3 ->  thing6 ->  thing5
+person7: thing8 ->  thing5 ->  thing1
+person8: thing10 ->  thing7 ->  thing4
+person9: thing1 ->  thing8 ->  thing2
+person10: thing7 ->  thing10 ->  thing8
+Execution time:  0.00537299999999874
+
+total candidates: 16
+minimal unhappiness found: 19
+person1 -> thing6
+person2 -> thing9
+person3 -> thing8
+person4 -> thing4
+person5 -> thing1
+person6 -> thing3
+person7 -> thing5
+person8 -> thing10
+person9 -> thing2
+person10 -> thing7
