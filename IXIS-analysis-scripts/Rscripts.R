@@ -54,7 +54,9 @@ ggplot(table1_result, aes(x=month_number, y=ECR, color=dim_deviceCategory))+geom
 addWorksheet(workbook, "worksheet_no1")
 addWorksheet(workbook, "worksheet_no2")
 
+table1_result <- as.data.frame(table1_result);
+
 writeData(workbook, "worksheet_no1", table1_result)
 writeData(workbook, "worksheet_no2", table2_data)
-saveWorkbook(workbook, file = "analysis_results", overwrite = TRUE);
+saveWorkbook(workbook, file = "analysis_results.xlsx", overwrite = TRUE);
 
