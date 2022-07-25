@@ -1,5 +1,11 @@
 library(tidyverse)
 library(stringr)
+library(data.table)
+library(openxlsx)
+options(scipen = 10)
+
+# make workbook
+workbook <- createWorkbook();
 
 # read csv file 
 cols <- read_csv(file = "session_counts.csv");
@@ -13,7 +19,7 @@ session_count <- aggregate(sessions~dim_deviceCategory+month_number, cols, sum);
 transaction_count <- aggregate(transactions~dim_deviceCategory+month_number, cols, sum);
 QTY_count <- aggregate(QTY~dim_deviceCategory+month_number, cols, sum);
 
-final_result = tibble(
+table1_result <- tibble(
   session_count[1],
   session_count[2],
   session_count[3],
@@ -21,7 +27,34 @@ final_result = tibble(
   QTY_count[3],
 );
 
-final_result$ECR <- final_result$transactions/final_result$sessions;
+table1_result$ECR <- table1_result$transactions/table1_result$sessions;
 
-ggplot(final_result, aes(x=month_number, y=ECR, color=dim_deviceCategory))+geom_point();
+
+
+carts_data <- read_csv(file = "adds_to_cart.csv");
+carts_data$month_number <- (carts_data$dim_year %% 1000)+(carts_data$dim_month/12)
+
+
+# populate table to be used for second xslx worksheet
+table2_data <- aggregate(.~month_number, table1_result[c(2,3,4,5)], sum)[c(11,12), ]  # grouping by month and selecting last 2
+table2_data$ECR <- table2_data$transactions/table2_data$sessions  # adding ECR column
+table2_data <- cbind(table2_data, carts_data[c(11,12),3]) # adding addsToCard column
+table2_data <- table2_data[,c(2,3,4,5,6)]   # cutting out month_number row
+
+table2_data <- as.data.frame(t(as.matrix(table2_data)))
+table2_data$absolute_diff <- table2_data$"12"-table2_data$"11";
+table2_data$relative_diff <- table2_data$"12"/table2_data$"11";
+colnames(table2_data) <- c("5/13", "6/13", "absolute_diff", "relative_diff");
+
+# produce a nice little plot that allows us to better visualize the site traffic data
+ggplot(table1_result, aes(x=month_number, y=ECR, color=dim_deviceCategory))+geom_point();
+
+# last thing we need to do is add worksheets to the workbook
+
+addWorksheet(workbook, "worksheet_no1")
+addWorksheet(workbook, "worksheet_no2")
+
+writeData(workbook, "worksheet_no1", table1_result)
+writeData(workbook, "worksheet_no2", table2_data)
+saveWorkbook(workbook, file = "analysis_results", overwrite = TRUE);
 
