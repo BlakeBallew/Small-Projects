@@ -1,0 +1,56 @@
+Author: Blake Ballew
+Description: Overview of files and their purposes, along with general comments of the coding process
+
+
+------Files------
+
+
+--pool--
+
+-Manages the functions that create, update, and display the word pool
+
+--wordle_game--
+
+-Lets user play complete wordle game via the command line with the ability to choose 
+words of any length and not just the standard 5
+-Allows user to see deduced list of every possible word the "mystery" word could be
+-Continuously makes deductions to the pool after each user guess
+
+--wordle_assist--
+
+-Unlike wordle_game, wordle_assist does not play an interactive game with the user but 
+rather allows the user to type in their results from an actual wordle game and actively
+deduce the pool of candidates for them
+
+
+------General Comments------
+
+
+The most difficult thing that I encountered in the coding process was the sheer number of edge
+cases. For instance, when displaying the results of a user guess back to them in the correct
+format it to be easy enough in most cases, but what if the user's guess had three e's, whereas the
+mystery word only had two? For instance, maybe they guessed "feeder" when the word was really "threes". 
+The "easy" way to code this results in the user being shown "f(e)(e)d[e](r)", which is misleading since 
+as we can see, "threes" only has two e's. This is a relatively rare case in words of length 5, but as we
+might expect, it is increasingly common in words with 8, 9, 10, or even more letters. Luckily, a hashmap
+makes quick work of this edge case by logging the number of occurrences of each letter and hence enabling
+us to never exceed that number when applying our parentheses.
+
+Another difficulty I encountered in the process of coding this was making all the possible, and more
+importantly, all the correct deductions to the word pool. As most of us who have played wordle know,
+the easiest event to make deductions upon is when we've identified a letter in both in the word and in 
+it's correct location. The same applies in coding those deductions. The second easiest event to base 
+deductions upon is when we've identified a letter in the word, but in the wrong location, whereupon we can
+rule out that location entirely for the given letter. Coding this was almost identical to the first case,
+as we now just rule out all words with that letter in that location instead of the opposite. Lastly, and
+easily the most difficult for me to encode into my deductions, were the cases where we make deductions
+based of the number of occurrences each letter had in the word. For example, it's easy enough when our 
+input of "example" gets outputted back to us as "[e]xample", as now we can rule out all words with more than
+one e. But what about when we get outputted "[e]xampl[e]" instead? We can't just rule out all words with more
+than two e's as there could be more for all we know, so we rule out all words with less than two e's
+instead. This seems fair enough, but encoding was fairly tricky for me. I ended up just making two groups
+that separated the letters with brackets/parentheses and those without, whereupon it made it much easier for me
+to check that any letters which appeared in only the latter group weren't in the word, any letters which were
+in both groups were in the word the exact number of times they appeared in the bracket/parentheses group,
+and any letters which only appeared in the brackets/parentheses group could only be in the word in an amount
+greater or equal to how many times they appeared in the brackets/parentheses group.
