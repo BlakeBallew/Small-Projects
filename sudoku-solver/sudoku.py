@@ -76,28 +76,22 @@ def print_board(board):
     print()
 
 def main():
-    # board = []
-    # print("please enter the puzzle row-by-row, without separation")
-    # for x in range(1,10):
-    #     print("row", x, ": ", end = "")
-    #     row = list(input())
-    #     int_map = map(int, row)
-    #     to_int = list(int_map)
-    #     board.append(to_int)
-    # startTime = time.perf_counter()
-    # indices = collect_indices(board)
-    # solved_puzzle = solve_helper(board, indices, 0)
-    # endTime = time.perf_counter()
-    # print("\nexecution time: ", endTime-startTime)
-    # print("iterations: ", accum)
-    # print("puzzle: ")
-    # print_board(solved_puzzle)
-    board = [[0, 3, 0, 0, 0, 9, 0, 0, 0], [0, 0, 4, 0, 0, 1, 0, 6, 7], [5, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 6, 0, 0, 8, 0, 2, 1], [0, 0, 9, 0, 0, 2, 0, 0, 8], [0, 2, 0, 0, 0, 0, 0, 7, 0], [0, 0, 0, 0, 0, 0, 5, 0, 9], [0, 0, 0, 6, 4, 0, 0, 0, 0], [0, 0, 0, 0, 5, 0, 0, 4, 0]]
-
+    board = []
+    print("please enter the puzzle row-by-row, without separation")
+    for x in range(1,10):
+        print("row", x, ": ", end = "")
+        row = list(input())
+        int_map = map(int, row)
+        to_int = list(int_map)
+        board.append(to_int)
+    startTime = time.perf_counter()
     indices = collect_indices(board)
     solved_puzzle = solve_helper(board, indices, 0)
-    print_board(solved_puzzle)
+    endTime = time.perf_counter()
+    print("\nexecution time: ", endTime-startTime)
     print("iterations: ", accum)
+    print("puzzle: ")
+    print_board(solved_puzzle)
 
     
 
